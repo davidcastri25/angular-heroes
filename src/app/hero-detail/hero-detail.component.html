@@ -1,0 +1,12 @@
+<div *ngIf="hero">
+    <!-- Se mostrará si selectedHero NO es undefined (por tanto, si se ha hecho click a un hérore) -->
+    <h2>{{ hero.name | uppercase }} Details</h2>
+    <div>
+        <span>id: </span>
+        {{ hero.id }}
+    </div>
+    <div>
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+    </div>
+</div>

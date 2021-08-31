@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 /* App Imports */
 import { Hero } from '../hero';
-import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service';
 
 /* Decorator que especifica metada para el componente */
 @Component({
@@ -17,13 +17,19 @@ export class HeroesComponent implements OnInit {
 
   /* Properties */
   selectedHero?: Hero;
-  heroes = HEROES; //Guardamos el array de héroes (simulado que vienen desde servidor)
+  heroes: Hero[] = []; //heroes será un array de objetos Hero, que nos lo dará el servicio HeroService
 
   /* Constructor */
-  constructor() { }
+  constructor(private heroService: HeroService) { }
 
   /* Lifecycle Hooks */
   ngOnInit(): void {
+    this.getHeroes(); //Llamamos al getter para, una vez inicializado el componente, obtener los datos (héroes)
+  }
+
+  /* Getters & Setters */
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
   }
 
   /* Methods */
