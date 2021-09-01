@@ -17,13 +17,10 @@ import { MessageService } from '../message.service';
 export class HeroesComponent implements OnInit {
 
   /* Properties */
-  selectedHero?: Hero;
   heroes: Hero[] = []; //heroes será un array de objetos Hero, que nos lo dará el servicio HeroService
 
   /* Constructor */
-  constructor(
-    private heroService: HeroService,
-    private messageService: MessageService) { }
+  constructor(private heroService: HeroService) { }
 
   /* Lifecycle Hooks */
   ngOnInit(): void {
@@ -37,12 +34,4 @@ export class HeroesComponent implements OnInit {
         heroes => this.heroes = heroes
       ); //Esperamos al Observable a que emita el array de Heroes y subscribe() pasa el array emitido al callback, donde entonces lo asignamos a la propiedad heroes de la clase
   }
-
-  /* Methods */
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: selected hero
-    id=${hero.id}`);
-  }
-
 }
