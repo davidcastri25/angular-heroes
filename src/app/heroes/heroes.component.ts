@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 /* App Imports */
 import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 /* Decorator que especifica metada para el componente */
 @Component({
@@ -20,7 +21,9 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[] = []; //heroes será un array de objetos Hero, que nos lo dará el servicio HeroService
 
   /* Constructor */
-  constructor(private heroService: HeroService) { }
+  constructor(
+    private heroService: HeroService,
+    private messageService: MessageService) { }
 
   /* Lifecycle Hooks */
   ngOnInit(): void {
@@ -29,12 +32,17 @@ export class HeroesComponent implements OnInit {
 
   /* Getters & Setters */
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes()
+      .subscribe(
+        heroes => this.heroes = heroes
+      ); //Esperamos al Observable a que emita el array de Heroes y subscribe() pasa el array emitido al callback, donde entonces lo asignamos a la propiedad heroes de la clase
   }
 
   /* Methods */
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+    this.messageService.add(`HeroesComponent: selected hero
+    id=${hero.id}`);
   }
 
 }
